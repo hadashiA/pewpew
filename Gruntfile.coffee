@@ -3,15 +3,22 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON('package.json')
 
     coffee:
-      files:
-        'app.js': 'app.coffee',
-        'public/javascripts/app.js': ['src/client/**/*.coffee']
-      glob_to_multipl: 
-        expand: true
-        cwd: 'src/server'
-        src: ['**/*.coffee']
-        dest: 'lib/'
-        ext: '.js'
+      server:
+        files:
+          'app.js': 'app.coffee',
+        glob_to_multipl: 
+          expand: true
+          cwd: 'src/server'
+          src: ['**/*.coffee']
+          dest: 'lib/'
+          ext: '.js'
+      client:
+        glob_to_multipl:
+          expand: true
+          cwd: 'src/client'
+          src: ['**/*.coffee']
+          dest: 'public/javascripts/lib/'
+          ext: '.js'
 
     concat:
       options:
@@ -27,8 +34,12 @@ module.exports = (grunt) ->
         dest: "public/javascripts/app.js"
 
     watch:
-      files: 'src/**/*.coffee'
-      tasks: ['coffee', 'concat']
+      src_server:
+        files: ['src/server/**/*.coffee']
+        tasks: ['coffee:server']
+      src_client:
+        files: ['src/client/**/*.coffee']
+        tasks: ['coffee:client', 'concat:app']
 
   grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-coffee')
