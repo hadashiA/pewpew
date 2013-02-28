@@ -1,0 +1,5 @@
+components
+node_modules
+public/javascripts/*
+lib/*
+app.js
