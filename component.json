@@ -4,5 +4,7 @@
   "dependencies": {
     "underscore": "latest",
     "jquery": "latest",
+    "backbone": "latest",
+    "hogan": "latest"
   }
 }

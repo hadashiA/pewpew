@@ -6,8 +6,8 @@
   },
   "dependencies": {
     "express": "3.1.0",
-    "jade": "*",
-    "hogan.js": "~2.0.0"
+    "hogan.js": "~2.0.0",
+    "hogan-express": "~0.3.3"
   },
   "devDependencies": {
     "grunt": "~0.4.0",
