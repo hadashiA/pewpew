@@ -17,7 +17,7 @@ module.exports = (grunt) ->
           expand: true
           cwd: 'src/client'
           src: ['**/*.coffee']
-          dest: 'public/javascripts/lib/'
+          dest: 'public/js/lib/'
           ext: '.js'
 
     concat:
@@ -28,10 +28,17 @@ module.exports = (grunt) ->
           'components/underscore/underscore-min.js',
           'components/jquery/jquery.min.js'
           ],
-        dest: "public/javascripts/vendor.js"
+        dest: "public/js/vendor.js"
       app:
-        src: ["public/javascripts/lib/**/*.js"]
-        dest: "public/javascripts/app.js"
+        src: ["public/js/lib/**/*.js"]
+        dest: "public/js/app.js"
+
+    uglify:
+      options:
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+      app:
+        files:
+          'public/js/app.min.js': ['<%= concat.app.dest %>']
 
     watch:
       src_server:
@@ -46,4 +53,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-contrib-concat')
   grunt.loadNpmTasks('grunt-contrib-watch')
 
-  grunt.registerTask 'default', ['coffee', 'concat']
+  grunt.registerTask 'default', ['coffee', 'concat', 'uglify']
