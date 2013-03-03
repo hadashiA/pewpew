@@ -4,21 +4,27 @@ module.exports = (grunt) ->
 
     coffee:
       server:
-        files:
-          'app.js': 'app.coffee',
-        glob_to_multipl: 
-          expand: true
-          cwd: 'src/server'
-          src: ['**/*.coffee']
-          dest: 'lib/'
-          ext: '.js'
+        files: [
+          {
+            'app.js': 'app.coffee'
+          }, {
+            expand: true,
+            cwd: 'src/server',
+            src: ['**/*.coffee'],
+            dest: 'lib/',
+            ext: '.js'
+          }
+        ]
       client:
-        glob_to_multipl:
-          expand: true
-          cwd: 'src/client'
-          src: ['**/*.coffee']
-          dest: 'public/js/lib/'
-          ext: '.js'
+        files: [
+          {
+            expand: true,
+            cwd: 'src/client',
+            src: ['*.coffee'],
+            dest: 'public/js/lib/',
+            ext: '.js'
+          }
+        ]
 
     concat:
       options:
@@ -26,7 +32,8 @@ module.exports = (grunt) ->
       vendor:
         src: [
           'components/underscore/underscore-min.js',
-          'components/jquery/jquery.min.js'
+          'components/jquery/jquery.min.js',
+          'components/backbone/backbone-min.js'
           ],
         dest: "public/js/vendor.js"
       app:
