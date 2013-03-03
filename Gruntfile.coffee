@@ -16,6 +16,8 @@ module.exports = (grunt) ->
           }
         ]
       client:
+        options:
+          bare: false
         files: [
           {
             expand: true,
@@ -61,3 +63,5 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-contrib-watch')
 
   grunt.registerTask 'default', ['coffee', 'concat', 'uglify']
+  grunt.registerTask 'server', ['coffee:server']
+  grunt.registerTask 'client', ['coffee:client', 'concat:app']
