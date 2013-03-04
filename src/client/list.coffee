@@ -1,3 +1,7 @@
+Backbone.sync = (method, model, success, error) -> 
+  success()
+
+
 class Item extends Backbone.Model
   defaults:
     part1: 'hello'
@@ -6,10 +10,36 @@ class Item extends Backbone.Model
 class List extends Backbone.Collection
   model: Item
 
-
 $ ->
-  # class ListView extends Backbone.View
-  ListView = Backbone.View.extend
+  class ItemView extends Backbone.View
+    tagName: 'li'
+  
+    events:
+      'click span.swap': 'swap'
+      'click span.delete': 'remove'
+
+    initialize: ->
+      _.bindAll(@, 'render', 'unrender', 'swap', 'remove')
+      @model.on 'change', @render
+      @model.on 'remove', @unrender
+  
+    render: ->
+      $(@el).html('<span style="color:black;">' + @model.get('part1') + ' ' + @model.get('part2') + '</span> &nbsp; &nbsp; <span class="swap" style="font-family:sans-serif; color:blue; cursor:pointer;">[swap]</span> <span class="delete" style="cursor:pointer; color:red; font-family:sans-serif;">[delete]</span>');
+      @
+
+    unrender: ->
+      $(@el).remove()
+  
+    swap: -> 
+      swapped =
+        part1: @model.get('part2')
+        part2: @model.get('part1')
+      @model.set swapped
+
+    remove: ->
+      @model.destroy()
+
+  class ListView extends Backbone.View
     el: $('body')
 
     events:
@@ -19,7 +49,7 @@ $ ->
       _.bindAll(@, 'render', 'addItem', 'appendItem')
 
       @collection = new List
-      @collection.bind('add', @appendItem)
+      @collection.on('add', @appendItem)
       @counter = 0
 
       @render()
@@ -40,8 +70,8 @@ $ ->
       @collection.add(item)
 
     appendItem: (item) ->
-      $('ul', @el).append('<li>' + item.get('part1') + ' ' + item.get('part2') + '</li>')
-      
+      itemView = new ItemView(model: item)
+      $('ul', @el).append(itemView.render().el)
 
   listView = new ListView
 
