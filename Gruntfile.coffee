@@ -8,10 +8,10 @@ module.exports = (grunt) ->
           {
             'app.js': 'app.coffee'
           }, {
-            expand: true,
-            cwd: 'src/server',
-            src: ['**/*.coffee'],
-            dest: 'lib/',
+            expand: true
+            cwd: 'src/server'
+            src: ['**/*.coffee']
+            dest: 'lib/'
             ext: '.js'
           }
         ]
@@ -21,9 +21,9 @@ module.exports = (grunt) ->
         files: [
           {
             expand: true,
-            cwd: 'src/client',
-            src: ['*.coffee'],
-            dest: 'public/js/lib/',
+            cwd: 'src/client'
+            src: ['*.coffee']
+            dest: 'public/js/lib/'
             ext: '.js'
           }
         ]
@@ -33,9 +33,10 @@ module.exports = (grunt) ->
         separator: ";"
       vendor:
         src: [
-          'components/underscore/underscore-min.js',
-          'components/jquery/jquery.min.js',
+          'components/underscore/underscore-min.js'
+          'components/jquery/jquery.min.js'
           'components/backbone/backbone-min.js'
+          'components/hogan/web/builds/2.0.0/hogan-2.0.0.js'
           ],
         dest: "public/js/vendor.js"
       app:

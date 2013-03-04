@@ -1,7 +1,6 @@
 Backbone.sync = (method, model, success, error) -> 
   success()
 
-
 class Item extends Backbone.Model
   defaults:
     part1: 'hello'
