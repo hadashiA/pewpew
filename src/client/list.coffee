@@ -22,7 +22,7 @@ $ ->
       @model.on 'change', @render
       @model.on 'remove', @unrender
 
-      @template = Hogan.compile('<span style="color:black;">{{part1}} {{part2}}</span>  <span class="swap" style="font-family:sans-serif; color:blue; cursor:pointer;">[swap]</span> <span class="delete" style="cursor:pointer; color:red; font-family:sans-serif;">[delete]</span>')
+      @template = Hogan.compile($('#list-template').html())
   
     render: ->
       $(@el).html(@template.render(@model.attributes));
@@ -41,7 +41,7 @@ $ ->
       @model.destroy()
 
   class ListView extends Backbone.View
-    el: $('body')
+    el: $('#pewpew-list')
 
     events:
       'click button#add': 'addItem'
@@ -56,9 +56,6 @@ $ ->
       @render()
 
     render: ->
-      $(@el).append('<button id="add">Add to list</button>')
-      $(@el).append('<ul></ul>')
-
       that = @
       @collection.each (item) ->
         that.appendItem item
@@ -71,7 +68,7 @@ $ ->
 
     appendItem: (item) ->
       itemView = new ItemView(model: item)
-      $('ul', @el).append(itemView.render().el)
+      @el.append(itemView.render().el)
 
   listView = new ListView
 
