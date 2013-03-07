@@ -21,9 +21,11 @@ $ ->
       _.bindAll(@, 'render', 'unrender', 'swap', 'remove')
       @model.on 'change', @render
       @model.on 'remove', @unrender
+
+      @template = Hogan.compile('<span style="color:black;">{{part1}} {{part2}}</span>  <span class="swap" style="font-family:sans-serif; color:blue; cursor:pointer;">[swap]</span> <span class="delete" style="cursor:pointer; color:red; font-family:sans-serif;">[delete]</span>')
   
     render: ->
-      $(@el).html('<span style="color:black;">' + @model.get('part1') + ' ' + @model.get('part2') + '</span> &nbsp; &nbsp; <span class="swap" style="font-family:sans-serif; color:blue; cursor:pointer;">[swap]</span> <span class="delete" style="cursor:pointer; color:red; font-family:sans-serif;">[delete]</span>');
+      $(@el).html(@template.render(@model.attributes));
       @
 
     unrender: ->
@@ -64,8 +66,7 @@ $ ->
     addItem: ->
       @counter++
       item = new Item
-      item.set
-        part2: item.get('part2') + @counter
+      item.set part2: item.get('part2') + @counter
       @collection.add(item)
 
     appendItem: (item) ->
