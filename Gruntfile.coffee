@@ -37,6 +37,7 @@ module.exports = (grunt) ->
           'components/jquery/jquery.min.js'
           'components/backbone/backbone-min.js'
           'components/hogan/web/builds/2.0.0/hogan-2.0.0.js'
+          'components/enchant.js/enchant.min.js'
           ],
         dest: "public/js/vendor.js"
       app:

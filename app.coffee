@@ -9,7 +9,6 @@ hogan   = require('hogan.js')
 app = express()
 
 app.engine 'html', require('hogan-express')
-app.enable('view cache')
 
 app.configure ->
   app.set "port", process.env.PORT or 3000
@@ -17,7 +16,6 @@ app.configure ->
   app.set "view engine", "html"
   app.set 'layout', 'layout' 
   app.set 'partials', head: 'head'
-  # app.locals = title: 'pewpew'
   app.use express.favicon()
   app.use express.logger("dev")
   app.use express.bodyParser()
@@ -27,6 +25,9 @@ app.configure ->
 
 app.configure "development", ->
   app.use express.errorHandler()
+
+app.configure 'production', ->
+  app.enable('view cache')
 
 app.get "/", (req, res) -> 
   res.render 'index'

@@ -1,10 +1,11 @@
 {
-  "name":  "kawaii-editor",
+  "name": "pewpew",
   "version": "0.0.1",
   "dependencies": {
     "underscore": "latest",
     "jquery": "latest",
     "backbone": "latest",
-    "hogan": "latest"
+    "hogan": "latest",
+    "enchant.js": "https://github.com/wise9/enchant.js.git#~0.6.3"
   }
 }
