@@ -9,7 +9,7 @@ module.exports = (grunt) ->
             'app.js': 'app.coffee'
           }, {
             expand: true
-            cwd: 'src/server'
+            cwd: 'lib'
             src: ['**/*.coffee']
             dest: 'lib/'
             ext: '.js'
@@ -21,7 +21,7 @@ module.exports = (grunt) ->
         files: [
           {
             expand: true,
-            cwd: 'src/client'
+            cwd: 'public/js/lib'
             src: ['*.coffee']
             dest: 'public/js/lib/'
             ext: '.js'

@@ -37,17 +37,29 @@ app.configure ->
   app.use express.methodOverride()
   app.use app.router
   app.use express.static(path.join(__dirname, "public"))
+  app.locals title: 'funamushi'
 
 app.configure "development", ->
   app.use express.errorHandler()
+  app.locals
+   js: [
+    {src: 'lib/funamushi.js'}
+   ]
 
 app.configure 'production', ->
   app.enable('view cache')
+  app.locals
+   js: [{src: 'app.min.js'}]
 
-# app.param 'format', (req, res, next, format) ->
-#   mimeType = express.mime.types[format]
-#   if mimeType
-#     req.headers.accept = mimeType
+# app.all '/*', (req, res, next) ->
+#   app.locals
+#     title: "funamushi"
+#     jsSources =
+#       if app.get ''
+
+#     js: [
+#       {src: 'app'}
+#       ]
 #   next()
 
 app.get '/(index.:format)?', (req, res) ->

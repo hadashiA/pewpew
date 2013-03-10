@@ -10,10 +10,3 @@ $ ->
     game.rootScene.addChild label
 
   game.start()    
-
-
-
-
-
-
-

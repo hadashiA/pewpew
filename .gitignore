@@ -1,5 +1,8 @@
 components
 node_modules
-public/js/*
-lib/*
+public/js/lib/*.js
+public/js/app.js
+public/js/app.min.js
+public/js/vendor.js
+lib/*.js
 app.js
