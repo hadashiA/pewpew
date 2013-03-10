@@ -3,11 +3,26 @@ Module dependencies.
 ###
 express = require('express')
 http    = require('http')
+util    = require('util')
 path    = require('path')
 hogan   = require('hogan.js')
+fs      = require('fs')
+
+__accepts = express.request.accepts
+express.request.accepts = (type) ->
+  format = this.params.format
+  if util.isArray(type)
+    for t in type
+      return t if t == format
+  else if type == this.params.format
+    return type
+  __accepts.call(this, type)
+
+__is = express.request.is
+express.request.is = (type) ->
+  this.params.format == type || __is.call(this, type)
 
 app = express()
-
 app.engine 'html', require('hogan-express')
 
 app.configure ->
@@ -29,8 +44,20 @@ app.configure "development", ->
 app.configure 'production', ->
   app.enable('view cache')
 
-app.get "/", (req, res) -> 
-  res.render 'index'
+# app.param 'format', (req, res, next, format) ->
+#   mimeType = express.mime.types[format]
+#   if mimeType
+#     req.headers.accept = mimeType
+#   next()
+
+app.get '/(index.:format)?', (req, res) ->
+  res.format
+    json: (req, res) -> 
+      res.send a: 1
+    html: (req, res) ->
+      res.render 'index'
+    default: ->
+      res.send 406;
 
 http.createServer(app).listen app.get("port"), ->
   console.log "Express server listening on port " + app.get("port")

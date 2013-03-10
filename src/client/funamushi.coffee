@@ -6,6 +6,14 @@ $ ->
   game.fps = 20
 
   game.onload = ->
-    console.log 'hello enchant.js'
+    label = new Label('Hello funamushi')
+    game.rootScene.addChild label
 
   game.start()    
+
+
+
+
+
+
+
