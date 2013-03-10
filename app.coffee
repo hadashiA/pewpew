@@ -51,17 +51,6 @@ app.configure 'production', ->
   app.locals
    js: [{src: 'app.min.js'}]
 
-# app.all '/*', (req, res, next) ->
-#   app.locals
-#     title: "funamushi"
-#     jsSources =
-#       if app.get ''
-
-#     js: [
-#       {src: 'app'}
-#       ]
-#   next()
-
 app.get '/(index.:format)?', (req, res) ->
   res.format
     json: (req, res) -> 
